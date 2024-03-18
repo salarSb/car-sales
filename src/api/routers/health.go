@@ -5,7 +5,7 @@ import (
 	"github.com/salarSb/car-sales/api/handlers"
 )
 
-func Health(routerGroup *gin.RouterGroup) {
+func Health(r *gin.RouterGroup) {
 	handler := handlers.NewHealthHandler()
-	routerGroup.GET("/", handler.Health)
+	r.GET("/", handler.Health)
 }
