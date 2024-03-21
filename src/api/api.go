@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
+	"github.com/salarSb/car-sales/api/middlewares"
 	"github.com/salarSb/car-sales/api/routers"
 	"github.com/salarSb/car-sales/api/validations"
 	"github.com/salarSb/car-sales/config"
@@ -21,8 +22,13 @@ func InitServer() {
 			log.Fatal("Error on registering custom validations")
 			return
 		}
+		err = val.RegisterValidation("password", validations.PasswordValidator, true)
+		if err != nil {
+			log.Fatal("Error on registering custom validations")
+			return
+		}
 	}
-	r.Use(gin.Logger(), gin.Recovery())
+	r.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequestMiddleware())
 	api := r.Group("api")
 	v1 := api.Group("/v1/")
 	{
