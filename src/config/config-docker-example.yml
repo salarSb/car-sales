@@ -13,7 +13,10 @@ postgres:
   user:
   password:
   dbName:
-  sslMode: false
+  sslMode: disable
+  maxIdleConnections: 15
+  maxOpenConnections: 100
+  connectionMaxLifetime: 5
 redis:
   host:
   port:

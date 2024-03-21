@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/spf13/viper"
 	"log"
+	"os"
 	"time"
 )
 
@@ -21,12 +22,15 @@ type ServerConfig struct {
 }
 
 type PostgresConfig struct {
-	Host     string
-	Port     string
-	User     string
-	Password string
-	DbName   string
-	SSLMode  bool
+	Host                  string
+	Port                  string
+	User                  string
+	Password              string
+	DbName                string
+	SSLMode               string
+	MaxIdleConnections    int
+	MaxOpenConnections    int
+	ConnectionMaxLifetime time.Duration
 }
 
 type RedisConfig struct {
@@ -57,7 +61,7 @@ type CorsConfig struct {
 }
 
 func GetConfig() *Config {
-	cfgPath := getConfigPath("docker") //os.Getenv("APP_ENV")
+	cfgPath := getConfigPath(os.Getenv("APP_ENV"))
 	v, err := LoadConfig(cfgPath, "yml")
 	if err != nil {
 		log.Fatalf("Error in load config, %v", err)
