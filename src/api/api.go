@@ -6,15 +6,29 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 	"github.com/salarSb/car-sales/api/middlewares"
-	"github.com/salarSb/car-sales/api/routers"
 	"github.com/salarSb/car-sales/api/validations"
 	"github.com/salarSb/car-sales/config"
 	"log"
 )
 
-func InitServer() {
-	cfg := config.GetConfig()
+func InitServer(cfg *config.Config) {
 	r := gin.New()
+	RegisterValidators()
+	r.Use(middlewares.Cors(cfg))
+	r.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequestMiddleware())
+	RegisterRoutes(r, cfg)
+	err := r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
+	if err != nil {
+		log.Fatal("error on running router")
+		return
+	}
+}
+
+func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
+
+}
+
+func RegisterValidators() {
 	val, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
 		err := val.RegisterValidation("mobile", validations.IranianMobileNumberValidator, true)
@@ -27,25 +41,5 @@ func InitServer() {
 			log.Fatal("Error on registering custom validations")
 			return
 		}
-	}
-	r.Use(middlewares.Cors(cfg))
-	r.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequestMiddleware())
-	api := r.Group("api")
-	v1 := api.Group("/v1/")
-	{
-		health := v1.Group("/health")
-		testRouter := v1.Group("/test")
-		routers.Health(health)
-		routers.TestRouter(testRouter)
-	}
-	v2 := api.Group("/v2/")
-	{
-		health := v2.Group("/health")
-		routers.Health(health)
-	}
-	err := r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
-	if err != nil {
-		log.Fatal("error on running router")
-		return
 	}
 }
