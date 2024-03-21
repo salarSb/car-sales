@@ -30,3 +30,6 @@ __debug_bin
 .env
 /src/config/config-development.yml
 /src/config/config-docker.yml
+/src/docs/docs.go
+/src/docs/swagger.json
+/src/docs/swagger.yaml
