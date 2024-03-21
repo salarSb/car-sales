@@ -28,6 +28,7 @@ func InitServer() {
 			return
 		}
 	}
+	r.Use(middlewares.Cors(cfg))
 	r.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequestMiddleware())
 	api := r.Group("api")
 	v1 := api.Group("/v1/")
