@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"github.com/go-redis/redis/v7"
 	"github.com/salarSb/car-sales/config"
-	"log"
+	"github.com/salarSb/car-sales/pkg/logging"
 	"time"
 )
 
 var redisClient *redis.Client
+var logger = logging.NewLogger(config.GetConfig())
 
 func InitRedis(cfg *config.Config) error {
 	redisClient = redis.NewClient(&redis.Options{
@@ -37,7 +38,7 @@ func GetRedis() *redis.Client {
 func CloseRedis() {
 	err := redisClient.Close()
 	if err != nil {
-		log.Fatal("error on closing redis connection")
+		logger.Fatal(logging.Redis, logging.Closing, "error on closing redis connection", nil)
 		return
 	}
 }

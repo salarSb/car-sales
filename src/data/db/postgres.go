@@ -3,13 +3,14 @@ package db
 import (
 	"fmt"
 	"github.com/salarSb/car-sales/config"
+	"github.com/salarSb/car-sales/pkg/logging"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"log"
 	"time"
 )
 
 var dbClient *gorm.DB
+var logger = logging.NewLogger(config.GetConfig())
 
 func InitDb(cfg *config.Config) error {
 	cnn := fmt.Sprintf(
@@ -33,7 +34,7 @@ func InitDb(cfg *config.Config) error {
 	sqlDb.SetMaxIdleConns(cfg.Postgres.MaxIdleConnections)
 	sqlDb.SetMaxOpenConns(cfg.Postgres.MaxOpenConnections)
 	sqlDb.SetConnMaxLifetime(cfg.Postgres.ConnectionMaxLifetime * time.Minute)
-	log.Println("db connection established")
+	logger.Info(logging.Postgres, logging.StartUp, "db connection established", nil)
 	return nil
 }
 
@@ -45,7 +46,7 @@ func CloseDb() {
 	cnn, _ := dbClient.DB()
 	err := cnn.Close()
 	if err != nil {
-		log.Fatal("error on closing db connection")
+		logger.Info(logging.Postgres, logging.Closing, "error on closing db connection", nil)
 		return
 	}
 }

@@ -5,16 +5,21 @@ import (
 	"github.com/salarSb/car-sales/config"
 	"github.com/salarSb/car-sales/data/cache"
 	"github.com/salarSb/car-sales/data/db"
-	"log"
+	"github.com/salarSb/car-sales/pkg/logging"
 )
 
 func main() {
 	cfg := config.GetConfig()
+	logger := logging.NewLogger(cfg)
 	err := cache.InitRedis(cfg)
+	if err != nil {
+		logger.Fatal(logging.Redis, logging.StartUp, err.Error(), nil)
+		return
+	}
 	defer cache.CloseRedis()
 	err = db.InitDb(cfg)
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(logging.Postgres, logging.StartUp, err.Error(), nil)
 		return
 	}
 	defer db.CloseDb()

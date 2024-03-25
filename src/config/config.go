@@ -10,6 +10,7 @@ import (
 
 type Config struct {
 	Server   ServerConfig
+	Logger   LoggerConfig
 	Postgres PostgresConfig
 	Redis    RedisConfig
 	Password PasswordConfig

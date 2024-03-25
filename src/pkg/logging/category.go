@@ -7,39 +7,41 @@ type ExtraKey string
 const (
 	General         Category = "General"
 	Internal        Category = "Internal"
-	Postgres        Category = "Category"
+	Postgres        Category = "Postgres"
 	Redis           Category = "Redis"
 	Validation      Category = "Validation"
 	RequestResponse Category = "RequestResponse"
 )
 
 const (
-	// StartUp General
+	// StartUp => General, Internal, Redis
 	StartUp SubCategory = "StartUp"
-	// ExternalService General
+	// ExternalService => General
 	ExternalService SubCategory = "ExternalService"
 
-	// Select Postgres
+	// Select => Postgres
 	Select SubCategory = "Select"
-	// Rollback Postgres
+	// Rollback => Postgres
 	Rollback SubCategory = "Rollback"
-	// Update Postgres
+	// Update => Postgres
 	Update SubCategory = "Update"
-	// Delete Postgres
+	// Delete => Postgres
 	Delete SubCategory = "Delete"
-	// Insert Postgres
+	// Insert => Postgres
 	Insert SubCategory = "Insert"
+	// Closing => Postgres
+	Closing SubCategory = "Closing"
 
-	// Api Internal
+	// Api => Internal
 	Api SubCategory = "Api"
-	// HashPassword Internal
+	// HashPassword => Internal
 	HashPassword SubCategory = "HashPassword"
-	// DefaultRoleNotFound Internal
+	// DefaultRoleNotFound => Internal
 	DefaultRoleNotFound SubCategory = "DefaultRoleNotFound"
 
-	// MobileValidation  Validation
+	// MobileValidation => Validation
 	MobileValidation SubCategory = "MobileValidation"
-	// PasswordValidation  Validation
+	// PasswordValidation => Validation
 	PasswordValidation SubCategory = "PasswordValidation"
 )
 
