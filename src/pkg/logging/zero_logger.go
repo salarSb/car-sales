@@ -1,11 +1,14 @@
 package logging
 
 import (
+	"fmt"
+	"github.com/google/uuid"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/pkgerrors"
 	"github.com/salarSb/car-sales/config"
 	"os"
 	"sync"
+	"time"
 )
 
 var zeroLogLevelMap = map[string]zerolog.Level{
@@ -40,7 +43,8 @@ func (l *zeroLogger) getLogLevel() zerolog.Level {
 func (l *zeroLogger) Init() {
 	once.Do(func() {
 		zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
-		file, err := os.OpenFile(l.cfg.Logger.FilePath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
+		fileName := fmt.Sprintf("%s%s-%s.%s", l.cfg.Logger.FilePath, time.Now().Format("2006-01-02"), uuid.New(), "log")
+		file, err := os.OpenFile(fileName, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
 		if err != nil {
 			panic("could not open log file")
 		}

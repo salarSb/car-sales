@@ -1,10 +1,13 @@
 package logging
 
 import (
+	"fmt"
+	"github.com/google/uuid"
 	"github.com/salarSb/car-sales/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
+	"time"
 )
 
 var zapLogLevelMap = map[string]zapcore.Level{
@@ -47,8 +50,9 @@ func (l *zapLogger) getLogLevel() zapcore.Level {
 
 func (l *zapLogger) Init() {
 	once.Do(func() {
+		fileName := fmt.Sprintf("%s%s-%s.%s", l.cfg.Logger.FilePath, time.Now().Format("2006-01-02"), uuid.New(), "log")
 		w := zapcore.AddSync(&lumberjack.Logger{
-			Filename:   l.cfg.Logger.FilePath,
+			Filename:   fileName,
 			MaxSize:    1,
 			MaxAge:     5,
 			LocalTime:  true,
