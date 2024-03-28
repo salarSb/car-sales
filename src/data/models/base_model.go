@@ -16,9 +16,9 @@ type BaseModel struct {
 	DeletedBy  *sql.NullInt64 `gorm:"null"`
 }
 
-func (m BaseModel) BeforeCreate(tx *gorm.DB) (err error) {
+func (m *BaseModel) BeforeCreate(tx *gorm.DB) (err error) {
 	value := tx.Statement.Context.Value("UserId")
-	userId := -1
+	var userId = -1
 	// TODO: check userId type
 	if value != nil {
 		userId = int(value.(float64))
@@ -28,9 +28,9 @@ func (m BaseModel) BeforeCreate(tx *gorm.DB) (err error) {
 	return
 }
 
-func (m BaseModel) BeforeUpdate(tx *gorm.DB) (err error) {
+func (m *BaseModel) BeforeUpdate(tx *gorm.DB) (err error) {
 	value := tx.Statement.Context.Value("UserId")
-	userId := &sql.NullInt64{Valid: false}
+	var userId = &sql.NullInt64{Valid: false}
 	// TODO: check userId type
 	if value != nil {
 		userId = &sql.NullInt64{
@@ -46,9 +46,9 @@ func (m BaseModel) BeforeUpdate(tx *gorm.DB) (err error) {
 	return
 }
 
-func (m BaseModel) BeforeDelete(tx *gorm.DB) (err error) {
+func (m *BaseModel) BeforeDelete(tx *gorm.DB) (err error) {
 	value := tx.Statement.Context.Value("UserId")
-	userId := &sql.NullInt64{Valid: false}
+	var userId = &sql.NullInt64{Valid: false}
 	// TODO: check userId type
 	if value != nil {
 		userId = &sql.NullInt64{
