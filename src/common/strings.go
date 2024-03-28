@@ -2,8 +2,11 @@ package common
 
 import (
 	"github.com/salarSb/car-sales/config"
+	"math"
 	"math/rand"
+	"strconv"
 	"strings"
+	"time"
 	"unicode"
 )
 
@@ -87,6 +90,15 @@ func GeneratePassword() string {
 		inRune[i], inRune[j] = inRune[j], inRune[i]
 	})
 	return string(inRune)
+}
+
+func GenerateOtp() string {
+	cfg := config.GetConfig()
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	m := int(math.Pow(10, float64(cfg.Otp.Digits-1)))   //10^d-1
+	i := int(math.Pow(10, float64(cfg.Otp.Digits)) - 1) //(10^d)-1
+	num := r.Intn(i-m) + m
+	return strconv.Itoa(num)
 }
 
 func HasLetter(s string) bool {
