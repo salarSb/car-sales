@@ -50,5 +50,5 @@ func (h *UserHandler) SendOtp(c *gin.Context) {
 		return
 	}
 	// Call internal sms service
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse("otp sent", true, 0))
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse("otp sent", true, int(helper.Success)))
 }
