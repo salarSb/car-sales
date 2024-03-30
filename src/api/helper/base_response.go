@@ -12,17 +12,20 @@ type BaseHttpResponse struct {
 
 func GenerateBaseResponse(result any, success bool, resultCode int) *BaseHttpResponse {
 	return &BaseHttpResponse{
-		Result:     result,
-		Success:    success,
-		ResultCode: resultCode,
+		Result:           result,
+		Success:          success,
+		ResultCode:       resultCode,
+		ValidationErrors: nil,
+		Error:            nil,
 	}
 }
 func GenerateBaseResponseWithError(result any, success bool, resultCode int, err error) *BaseHttpResponse {
 	return &BaseHttpResponse{
-		Result:     result,
-		Success:    success,
-		ResultCode: resultCode,
-		Error:      err.Error(),
+		Result:           result,
+		Success:          success,
+		ResultCode:       resultCode,
+		ValidationErrors: nil,
+		Error:            err.Error(),
 	}
 }
 func GenerateBaseResponseWithValidationError(result any, success bool, resultCode int, err error) *BaseHttpResponse {
@@ -31,5 +34,6 @@ func GenerateBaseResponseWithValidationError(result any, success bool, resultCod
 		Success:          success,
 		ResultCode:       resultCode,
 		ValidationErrors: validations.GetValidationErrors(err),
+		Error:            nil,
 	}
 }

@@ -32,9 +32,7 @@ func (s *OtpService) SetOtp(mobileNumber string, otp string) error {
 	key := fmt.Sprintf("%s:%s", constants.RedisOtpDefaultKey, mobileNumber)
 	val := &OtpDto{Value: otp, Used: false}
 	res, err := cache.Get[OtpDto](s.RedisClient, key)
-	if err != nil {
-		return err
-	} else if err == nil && !res.Used {
+	if err == nil && !res.Used {
 		return &service_errors.ServiceError{EndUserMessage: service_errors.OtpExists}
 	} else if err == nil && res.Used {
 		return &service_errors.ServiceError{EndUserMessage: service_errors.OtpUsed}
@@ -45,6 +43,7 @@ func (s *OtpService) SetOtp(mobileNumber string, otp string) error {
 	}
 	return nil
 }
+
 func (s *OtpService) ValidateOtp(mobileNumber string, otp string) error {
 	key := fmt.Sprintf("%s:%s", constants.RedisOtpDefaultKey, mobileNumber)
 	res, err := cache.Get[OtpDto](s.RedisClient, key)

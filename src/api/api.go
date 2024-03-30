@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 	"github.com/salarSb/car-sales/api/middlewares"
+	"github.com/salarSb/car-sales/api/routers"
 	"github.com/salarSb/car-sales/api/validations"
 	"github.com/salarSb/car-sales/config"
 	"github.com/salarSb/car-sales/docs"
@@ -31,7 +32,12 @@ func InitServer(cfg *config.Config) {
 }
 
 func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
-
+	api := r.Group("/api")
+	v1 := api.Group("/v1")
+	{
+		users := v1.Group("/users")
+		routers.User(users, cfg)
+	}
 }
 
 func RegisterValidators(logger logging.Logger) {
