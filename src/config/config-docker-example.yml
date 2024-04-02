@@ -40,4 +40,9 @@ password:
 otp:
   expireTime: 120
   digits: 6
-  limiter: 100
+  limiter: 10
+jwt:
+  secret:
+  refreshSecret:
+  accessTokenExpireDuration:
+  refreshTokenExpireDuration:
