@@ -10,6 +10,10 @@ var StatusCodeMapping = map[string]int{
 	service_errors.OtpExists:   http.StatusConflict,
 	service_errors.OtpUsed:     http.StatusConflict,
 	service_errors.OtpNotValid: http.StatusBadRequest,
+
+	//User
+	service_errors.EmailExists:    http.StatusConflict,
+	service_errors.UsernameExists: http.StatusConflict,
 }
 
 func TranslateErrorToStatusCode(err error) int {

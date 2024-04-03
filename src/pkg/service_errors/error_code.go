@@ -15,4 +15,10 @@ const (
 
 	// ClaimsNotFound Token
 	ClaimsNotFound = "claims not found"
+
+	// EmailExists User
+	EmailExists = "email exists"
+
+	// UsernameExists User
+	UsernameExists = "username exists"
 )

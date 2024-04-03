@@ -19,8 +19,8 @@ func NewUserHandler(cfg *config.Config) *UserHandler {
 }
 
 // SendOtp godoc
-// @Summary Send otp to user
-// @description Send otp to user
+// @Summary SendOtp
+// @description SendOtp
 // @Tags Users
 // @Accept json
 // @Produce json
@@ -51,4 +51,106 @@ func (h *UserHandler) SendOtp(c *gin.Context) {
 	}
 	// Call internal sms service
 	c.JSON(http.StatusCreated, helper.GenerateBaseResponse("otp sent", true, int(helper.Success)))
+}
+
+// LoginByUsername godoc
+// @Summary LoginByUsername
+// @description LoginByUsername
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Param Request body dto.LoginByUsernameRequest true "LoginByUsernameRequest"
+// @Success 201 {object} helper.BaseHttpResponse "Success"
+// @Failure 422 {object} helper.BaseHttpResponse "Failed"
+// @Failure 409 {object} helper.BaseHttpResponse "Failed"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Failure 500 {object} helper.BaseHttpResponse "Failed"
+// Router /v1/users/login-by-username [post]
+func (h *UserHandler) LoginByUsername(c *gin.Context) {
+	req := new(dto.LoginByUsernameRequest)
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		c.AbortWithStatusJSON(
+			http.StatusUnprocessableEntity,
+			helper.GenerateBaseResponseWithValidationError(nil, false, -1, err),
+		)
+		return
+	}
+	token, err := h.userService.LoginByUsername(req)
+	if err != nil {
+		c.AbortWithStatusJSON(
+			helper.TranslateErrorToStatusCode(err),
+			helper.GenerateBaseResponseWithError(nil, false, -1, err),
+		)
+		return
+	}
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, 0))
+}
+
+// RegisterByUsername godoc
+// @Summary RegisterByUsername
+// @description RegisterByUsername
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Param Request body dto.RegisterByUsernameRequest true "RegisterByUsernameRequest"
+// @Success 201 {object} helper.BaseHttpResponse "Success"
+// @Failure 422 {object} helper.BaseHttpResponse "Failed"
+// @Failure 409 {object} helper.BaseHttpResponse "Failed"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Failure 500 {object} helper.BaseHttpResponse "Failed"
+// Router /v1/users/register-by-username [post]
+func (h *UserHandler) RegisterByUsername(c *gin.Context) {
+	req := new(dto.RegisterByUsernameRequest)
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		c.AbortWithStatusJSON(
+			http.StatusUnprocessableEntity,
+			helper.GenerateBaseResponseWithValidationError(nil, false, -1, err),
+		)
+		return
+	}
+	err = h.userService.RegisterByUsername(req)
+	if err != nil {
+		c.AbortWithStatusJSON(
+			helper.TranslateErrorToStatusCode(err),
+			helper.GenerateBaseResponseWithError(nil, false, -1, err),
+		)
+		return
+	}
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(nil, true, 0))
+}
+
+// RegisterLoginByMobileNumber godoc
+// @Summary RegisterLoginByMobileNumber
+// @description RegisterLoginByMobileNumber
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Param Request body dto.RegisterLoginByMobileRequest true "RegisterLoginByMobileRequest"
+// @Success 201 {object} helper.BaseHttpResponse "Success"
+// @Failure 422 {object} helper.BaseHttpResponse "Failed"
+// @Failure 409 {object} helper.BaseHttpResponse "Failed"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Failure 500 {object} helper.BaseHttpResponse "Failed"
+// Router /v1/users/login-by-mobile [post]
+func (h *UserHandler) RegisterLoginByMobileNumber(c *gin.Context) {
+	req := new(dto.RegisterLoginByMobileRequest)
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		c.AbortWithStatusJSON(
+			http.StatusUnprocessableEntity,
+			helper.GenerateBaseResponseWithValidationError(nil, false, -1, err),
+		)
+		return
+	}
+	token, err := h.userService.RegisterLoginByMobileNumber(req)
+	if err != nil {
+		c.AbortWithStatusJSON(
+			helper.TranslateErrorToStatusCode(err),
+			helper.GenerateBaseResponseWithError(nil, false, -1, err),
+		)
+		return
+	}
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, 0))
 }

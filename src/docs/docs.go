@@ -27,6 +27,73 @@ const docTemplate = `{
                 }
             }
         },
+        "dto.LoginByUsernameRequest": {
+            "type": "object",
+            "required": [
+                "password",
+                "username"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "minLength": 6
+                },
+                "username": {
+                    "type": "string",
+                    "minLength": 6
+                }
+            }
+        },
+        "dto.RegisterByUsernameRequest": {
+            "type": "object",
+            "required": [
+                "firstName",
+                "lastName",
+                "password",
+                "username"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "minLength": 6
+                },
+                "firstName": {
+                    "type": "string",
+                    "minLength": 3
+                },
+                "lastName": {
+                    "type": "string",
+                    "minLength": 3
+                },
+                "password": {
+                    "type": "string",
+                    "minLength": 6
+                },
+                "username": {
+                    "type": "string",
+                    "minLength": 5
+                }
+            }
+        },
+        "dto.RegisterLoginByMobileRequest": {
+            "type": "object",
+            "required": [
+                "mobileNumber",
+                "otp"
+            ],
+            "properties": {
+                "mobileNumber": {
+                    "type": "string",
+                    "maxLength": 11,
+                    "minLength": 11
+                },
+                "otp": {
+                    "type": "string",
+                    "maxLength": 6,
+                    "minLength": 6
+                }
+            }
+        },
         "helper.BaseHttpResponse": {
             "type": "object",
             "properties": {
