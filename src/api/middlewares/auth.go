@@ -50,3 +50,38 @@ func Authentication(cfg *config.Config) gin.HandlerFunc {
 		context.Next()
 	}
 }
+
+func Authorization(validRoles []string) gin.HandlerFunc {
+	return func(context *gin.Context) {
+		if len(context.Keys) == 0 {
+			context.AbortWithStatusJSON(
+				http.StatusForbidden,
+				helper.GenerateBaseResponse(nil, false, helper.ForbiddenError),
+			)
+			return
+		}
+		rolesVal := context.Keys[constants.RolesKey]
+		if rolesVal == nil {
+			context.AbortWithStatusJSON(
+				http.StatusForbidden,
+				helper.GenerateBaseResponse(nil, false, helper.ForbiddenError),
+			)
+			return
+		}
+		roles := rolesVal.([]interface{})
+		val := map[string]int{}
+		for _, item := range roles {
+			val[item.(string)] = 0
+		}
+		for _, item := range validRoles {
+			if _, ok := val[item]; ok {
+				context.Next()
+				return
+			}
+		}
+		context.AbortWithStatusJSON(
+			http.StatusForbidden,
+			helper.GenerateBaseResponse(nil, false, helper.ForbiddenError),
+		)
+	}
+}
