@@ -37,7 +37,7 @@ func (h *UserHandler) SendOtp(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(
 			http.StatusUnprocessableEntity,
-			helper.GenerateBaseResponseWithValidationError(nil, false, -1, err),
+			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err),
 		)
 		return
 	}
@@ -45,7 +45,7 @@ func (h *UserHandler) SendOtp(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(
 			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, -1, err),
+			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
 		)
 		return
 	}
@@ -72,7 +72,7 @@ func (h *UserHandler) LoginByUsername(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(
 			http.StatusUnprocessableEntity,
-			helper.GenerateBaseResponseWithValidationError(nil, false, -1, err),
+			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err),
 		)
 		return
 	}
@@ -80,7 +80,7 @@ func (h *UserHandler) LoginByUsername(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(
 			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, -1, err),
+			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
 		)
 		return
 	}
@@ -106,7 +106,7 @@ func (h *UserHandler) RegisterByUsername(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(
 			http.StatusUnprocessableEntity,
-			helper.GenerateBaseResponseWithValidationError(nil, false, -1, err),
+			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err),
 		)
 		return
 	}
@@ -114,7 +114,7 @@ func (h *UserHandler) RegisterByUsername(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(
 			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, -1, err),
+			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
 		)
 		return
 	}
@@ -140,7 +140,7 @@ func (h *UserHandler) RegisterLoginByMobileNumber(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(
 			http.StatusUnprocessableEntity,
-			helper.GenerateBaseResponseWithValidationError(nil, false, -1, err),
+			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err),
 		)
 		return
 	}
@@ -148,7 +148,7 @@ func (h *UserHandler) RegisterLoginByMobileNumber(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(
 			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, -1, err),
+			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
 		)
 		return
 	}

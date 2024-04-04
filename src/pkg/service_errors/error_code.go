@@ -1,24 +1,26 @@
 package service_errors
 
 const (
-	// OtpExists Otp
+	// OtpExists => Otp
 	OtpExists = "otp exists"
-
-	// OtpUsed Otp
+	// OtpUsed => Otp
 	OtpUsed = "otp used"
-
-	// OtpNotValid Otp
+	// OtpNotValid => Otp
 	OtpNotValid = "otp not valid"
 
-	// UnexpectedError Token
+	// UnexpectedError => Token
 	UnexpectedError = "unexpected error"
-
-	// ClaimsNotFound Token
+	// ClaimsNotFound => Token
 	ClaimsNotFound = "claims not found"
+	// TokenRequired => Token
+	TokenRequired = "token required"
+	// TokenExpired => Token
+	TokenExpired = "token expired"
+	// TokenInvalid => Token
+	TokenInvalid = "token invalid"
 
-	// EmailExists User
+	// EmailExists => User
 	EmailExists = "email exists"
-
-	// UsernameExists User
+	// UsernameExists => User
 	UsernameExists = "username exists"
 )
