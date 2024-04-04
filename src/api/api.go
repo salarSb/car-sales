@@ -21,7 +21,7 @@ func InitServer(cfg *config.Config) {
 	RegisterValidators(logger)
 	r.Use(middlewares.DefaultStructuredLogger(cfg))
 	r.Use(middlewares.Cors(cfg))
-	r.Use(gin.Logger(), gin.Recovery())
+	r.Use(gin.Logger(), gin.CustomRecovery(middlewares.ErrorHandler))
 	RegisterRoutes(r, cfg)
 	RegisterSwagger(r, cfg)
 	err := r.Run(fmt.Sprintf(":%s", cfg.Server.Port))

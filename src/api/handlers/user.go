@@ -50,7 +50,7 @@ func (h *UserHandler) SendOtp(c *gin.Context) {
 		return
 	}
 	// Call internal sms service
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse("otp sent", true, int(helper.Success)))
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse("otp sent", true, helper.Success))
 }
 
 // LoginByUsername godoc
@@ -84,7 +84,7 @@ func (h *UserHandler) LoginByUsername(c *gin.Context) {
 		)
 		return
 	}
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, 0))
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, helper.Success))
 }
 
 // RegisterByUsername godoc
@@ -118,7 +118,7 @@ func (h *UserHandler) RegisterByUsername(c *gin.Context) {
 		)
 		return
 	}
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(nil, true, 0))
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(nil, true, helper.Success))
 }
 
 // RegisterLoginByMobileNumber godoc
@@ -152,5 +152,5 @@ func (h *UserHandler) RegisterLoginByMobileNumber(c *gin.Context) {
 		)
 		return
 	}
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, 0))
+	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(token, true, helper.Success))
 }

@@ -21,7 +21,7 @@ func OtpLimiter(cfg *config.Config) gin.HandlerFunc {
 				helper.GenerateBaseResponseWithError(
 					nil,
 					false,
-					int(helper.OtpLimiterError),
+					helper.OtpLimiterError,
 					errors.New("not allowed"),
 				),
 			)
