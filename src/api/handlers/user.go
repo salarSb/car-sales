@@ -26,10 +26,10 @@ func NewUserHandler(cfg *config.Config) *UserHandler {
 // @Produce json
 // @Param Request body dto.GetOtpRequest true "GetOtpRequest"
 // @Success 201 {object} helper.BaseHttpResponse "Success"
-// @Failure 422 {object} helper.GenerateBaseResponseWithValidationError "Failed"
-// @Failure 409 {object} helper.GenerateBaseResponseWithError "Failed"
-// @Failure 400 {object} helper.GenerateBaseResponseWithError "Failed"
-// @Failure 500 {object} helper.GenerateBaseResponseWithError "Failed"
+// @Failure 422 {object} helper.BaseHttpResponse "Failed"
+// @Failure 409 {object} helper.BaseHttpResponse "Failed"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Failure 500 {object} helper.BaseHttpResponse "Failed"
 // @Router /v1/users/send-otp [post]
 func (h *UserHandler) SendOtp(c *gin.Context) {
 	req := new(dto.GetOtpRequest)
@@ -61,10 +61,10 @@ func (h *UserHandler) SendOtp(c *gin.Context) {
 // @Produce json
 // @Param Request body dto.LoginByUsernameRequest true "LoginByUsernameRequest"
 // @Success 201 {object} helper.BaseHttpResponse "Success"
-// @Failure 422 {object} helper.GenerateBaseResponseWithValidationError "Failed"
-// @Failure 409 {object} helper.GenerateBaseResponseWithError "Failed"
-// @Failure 400 {object} helper.GenerateBaseResponseWithError "Failed"
-// @Failure 500 {object} helper.GenerateBaseResponseWithError "Failed"
+// @Failure 422 {object} helper.BaseHttpResponse "Failed"
+// @Failure 409 {object} helper.BaseHttpResponse "Failed"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Failure 500 {object} helper.BaseHttpResponse "Failed"
 // @Router /v1/users/login-by-username [post]
 func (h *UserHandler) LoginByUsername(c *gin.Context) {
 	req := new(dto.LoginByUsernameRequest)
@@ -95,10 +95,10 @@ func (h *UserHandler) LoginByUsername(c *gin.Context) {
 // @Produce json
 // @Param Request body dto.RegisterByUsernameRequest true "RegisterByUsernameRequest"
 // @Success 201 {object} helper.BaseHttpResponse "Success"
-// @Failure 422 {object} helper.GenerateBaseResponseWithValidationError "Failed"
-// @Failure 409 {object} helper.GenerateBaseResponseWithError "Failed"
-// @Failure 400 {object} helper.GenerateBaseResponseWithError "Failed"
-// @Failure 500 {object} helper.GenerateBaseResponseWithError "Failed"
+// @Failure 422 {object} helper.BaseHttpResponse "Failed"
+// @Failure 409 {object} helper.BaseHttpResponse "Failed"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Failure 500 {object} helper.BaseHttpResponse "Failed"
 // @Router /v1/users/register-by-username [post]
 func (h *UserHandler) RegisterByUsername(c *gin.Context) {
 	req := new(dto.RegisterByUsernameRequest)
@@ -129,10 +129,10 @@ func (h *UserHandler) RegisterByUsername(c *gin.Context) {
 // @Produce json
 // @Param Request body dto.RegisterLoginByMobileRequest true "RegisterLoginByMobileRequest"
 // @Success 201 {object} helper.BaseHttpResponse "Success"
-// @Failure 422 {object} helper.GenerateBaseResponseWithValidationError "Failed"
-// @Failure 409 {object} helper.GenerateBaseResponseWithError "Failed"
-// @Failure 400 {object} helper.GenerateBaseResponseWithError "Failed"
-// @Failure 500 {object} helper.GenerateBaseResponseWithError "Failed"
+// @Failure 422 {object} helper.BaseHttpResponse "Failed"
+// @Failure 409 {object} helper.BaseHttpResponse "Failed"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Failure 500 {object} helper.BaseHttpResponse "Failed"
 // @Router /v1/users/login-by-mobile [post]
 func (h *UserHandler) RegisterLoginByMobileNumber(c *gin.Context) {
 	req := new(dto.RegisterLoginByMobileRequest)

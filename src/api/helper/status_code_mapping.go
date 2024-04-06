@@ -12,8 +12,9 @@ var StatusCodeMapping = map[string]int{
 	service_errors.OtpNotValid: http.StatusBadRequest,
 
 	//User
-	service_errors.EmailExists:    http.StatusConflict,
-	service_errors.UsernameExists: http.StatusConflict,
+	service_errors.EmailExists:      http.StatusConflict,
+	service_errors.UsernameExists:   http.StatusConflict,
+	service_errors.PermissionDenied: http.StatusForbidden,
 
 	//DB
 	service_errors.RecordNotFound: http.StatusNotFound,

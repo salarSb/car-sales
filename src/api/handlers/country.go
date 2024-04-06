@@ -26,10 +26,10 @@ func NewCountryHandler(cfg *config.Config) *CountryHandler {
 // @Produce json
 // @Param Request body dto.CountryRequest true "Create a country"
 // @Success 201 {object} helper.BaseHttpResponse{result=dto.CountryResponse} "Country response"
-// @Failure 422 {object} helper.GenerateBaseResponseWithValidationError "Unprocessable Entity"
-// @Failure 409 {object} helper.GenerateBaseResponseWithError "Status Conflict"
-// @Failure 400 {object} helper.GenerateBaseResponseWithError "Bad Request"
-// @Failure 500 {object} helper.GenerateBaseResponseWithError "Internal Server Error"
+// @Failure 422 {object} helper.BaseHttpResponse "Unprocessable Entity"
+// @Failure 409 {object} helper.BaseHttpResponse "Status Conflict"
+// @Failure 400 {object} helper.BaseHttpResponse "Bad Request"
+// @Failure 500 {object} helper.BaseHttpResponse "Internal Server Error"
 // @Router /v1/countries/ [post]
 // @Security AuthBearer
 func (h *CountryHandler) Create(c *gin.Context) {
@@ -62,11 +62,11 @@ func (h *CountryHandler) Create(c *gin.Context) {
 // @Param id path int true "id"
 // @Param Request body dto.CountryRequest true "Update a country"
 // @Success 200 {object} helper.BaseHttpResponse{result=dto.CountryResponse} "Country response"
-// @Failure 422 {object} helper.GenerateBaseResponseWithValidationError "Unprocessable Entity"
-// @Failure 409 {object} helper.GenerateBaseResponseWithError "Status Conflict"
-// @Failure 400 {object} helper.GenerateBaseResponseWithError "Bad Request"
-// @Failure 404 {object} helper.GenerateBaseResponseWithError "Not Found"
-// @Failure 500 {object} helper.GenerateBaseResponseWithError "Internal Server Error"
+// @Failure 422 {object} helper.BaseHttpResponse "Unprocessable Entity"
+// @Failure 409 {object} helper.BaseHttpResponse "Status Conflict"
+// @Failure 400 {object} helper.BaseHttpResponse "Bad Request"
+// @Failure 404 {object} helper.BaseHttpResponse "Not Found"
+// @Failure 500 {object} helper.BaseHttpResponse "Internal Server Error"
 // @Router /v1/countries/{id} [put]
 // @Security AuthBearer
 func (h *CountryHandler) Update(c *gin.Context) {
@@ -99,10 +99,10 @@ func (h *CountryHandler) Update(c *gin.Context) {
 // @Produce json
 // @Param id path int true "id"
 // @Success 200 {object} helper.BaseHttpResponse "response"
-// @Failure 409 {object} helper.GenerateBaseResponseWithError "Status Conflict"
-// @Failure 400 {object} helper.GenerateBaseResponseWithError "Bad Request"
-// @Failure 404 {object} helper.GenerateBaseResponseWithError "Not Found"
-// @Failure 500 {object} helper.GenerateBaseResponseWithError "Internal Server Error"
+// @Failure 409 {object} helper.BaseHttpResponse "Status Conflict"
+// @Failure 400 {object} helper.BaseHttpResponse "Bad Request"
+// @Failure 404 {object} helper.BaseHttpResponse "Not Found"
+// @Failure 500 {object} helper.BaseHttpResponse "Internal Server Error"
 // @Router /v1/countries/{id} [delete]
 // @Security AuthBearer
 func (h *CountryHandler) Delete(c *gin.Context) {
@@ -126,13 +126,13 @@ func (h *CountryHandler) Delete(c *gin.Context) {
 // @Produce json
 // @Param id path int true "id"
 // @Success 200 {object} helper.BaseHttpResponse{result=dto.CountryResponse} "Country response"
-// @Failure 404 {object} helper.GenerateBaseResponseWithError "Not Found"
-// @Failure 500 {object} helper.GenerateBaseResponseWithError "Internal Server Error"
+// @Failure 404 {object} helper.BaseHttpResponse "Not Found"
+// @Failure 500 {object} helper.BaseHttpResponse "Internal Server Error"
 // @Router /v1/countries/{id} [get]
-// @Security AuthBearer
+// @Security BearerAuth
 func (h *CountryHandler) GetById(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Params.ByName("id"))
-	res, err := h.countryService.GetById(c, id)
+	res, err := h.countryService.GetById(id)
 	if err != nil {
 		c.AbortWithStatusJSON(
 			helper.TranslateErrorToStatusCode(err),

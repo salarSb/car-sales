@@ -94,7 +94,7 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "AuthBearer": []
+                        "BearerAuth": []
                     }
                 ],
                 "description": "Update a country",
