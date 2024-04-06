@@ -11,3 +11,17 @@ type User struct {
 	Enabled      bool   `gorm:"default:true"`
 	RoleUsers    *[]RoleUser
 }
+
+type Role struct {
+	BaseModel
+	Name      string `gorm:"type:string;size:10;not null;unique"`
+	RoleUsers *[]RoleUser
+}
+
+type RoleUser struct {
+	BaseModel
+	Role   Role `gorm:"foreignKey:RoleId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
+	User   User `gorm:"foreignKey:UserId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
+	RoleId int
+	UserId int
+}

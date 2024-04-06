@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"github.com/salarSb/car-sales/constants"
 	"gorm.io/gorm"
 	"time"
 )
@@ -17,9 +18,8 @@ type BaseModel struct {
 }
 
 func (m *BaseModel) BeforeCreate(tx *gorm.DB) (err error) {
-	value := tx.Statement.Context.Value("UserId")
+	value := tx.Statement.Context.Value(constants.UserIdKey)
 	var userId = -1
-	// TODO: check userId type
 	if value != nil {
 		userId = int(value.(float64))
 	}
@@ -29,9 +29,8 @@ func (m *BaseModel) BeforeCreate(tx *gorm.DB) (err error) {
 }
 
 func (m *BaseModel) BeforeUpdate(tx *gorm.DB) (err error) {
-	value := tx.Statement.Context.Value("UserId")
+	value := tx.Statement.Context.Value(constants.UserIdKey)
 	var userId = &sql.NullInt64{Valid: false}
-	// TODO: check userId type
 	if value != nil {
 		userId = &sql.NullInt64{
 			Valid: true,
@@ -47,9 +46,8 @@ func (m *BaseModel) BeforeUpdate(tx *gorm.DB) (err error) {
 }
 
 func (m *BaseModel) BeforeDelete(tx *gorm.DB) (err error) {
-	value := tx.Statement.Context.Value("UserId")
+	value := tx.Statement.Context.Value(constants.UserIdKey)
 	var userId = &sql.NullInt64{Valid: false}
-	// TODO: check userId type
 	if value != nil {
 		userId = &sql.NullInt64{
 			Valid: true,

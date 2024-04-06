@@ -36,7 +36,13 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 	v1 := api.Group("/v1")
 	{
 		users := v1.Group("/users")
+		countries := v1.Group(
+			"/countries",
+			middlewares.Authentication(cfg),
+			middlewares.Authorization([]string{"admin"}),
+		)
 		routers.User(users, cfg)
+		routers.Country(countries, cfg)
 	}
 }
 
@@ -45,12 +51,22 @@ func RegisterValidators(logger logging.Logger) {
 	if ok {
 		err := val.RegisterValidation("mobile", validations.IranianMobileNumberValidator, true)
 		if err != nil {
-			logger.Fatal(logging.Validation, logging.MobileValidation, "Error on registering custom mobile validation", nil)
+			logger.Fatal(
+				logging.Validation,
+				logging.MobileValidation,
+				"Error on registering custom mobile validation",
+				nil,
+			)
 			return
 		}
 		err = val.RegisterValidation("password", validations.PasswordValidator, true)
 		if err != nil {
-			logger.Fatal(logging.Validation, logging.PasswordValidation, "Error on registering custom password validation", nil)
+			logger.Fatal(
+				logging.Validation,
+				logging.PasswordValidation,
+				"Error on registering custom password validation",
+				nil,
+			)
 			return
 		}
 	}
