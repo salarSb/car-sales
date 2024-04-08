@@ -1,0 +1,20 @@
+package models
+
+type PropertyCategory struct {
+	BaseModel
+	Name       string `gorm:"size:15;type:string;not null;unique"`
+	Icon       string `gorm:"size:1000;type:string;not null;unique"`
+	Properties []Property
+}
+
+type Property struct {
+	BaseModel
+	Name               string           `gorm:"size:15;type:string;not null;unique"`
+	Icon               string           `gorm:"size:1000;type:string;not null;unique"`
+	PropertyCategory   PropertyCategory `gorm:"foreignKey:PropertyCategoryId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
+	PropertyCategoryId int
+	Description        string `gorm:"size:1000;type:string;not null;unique"`
+	DataType           string `gorm:"size:15;type:string;not null;unique"`
+	Unit               string `gorm:"size:15;type:string;not null;unique"`
+	CarModelProperties []CarModelProperty
+}
