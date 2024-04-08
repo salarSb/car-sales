@@ -16,6 +16,7 @@ func Up1() {
 	database := db.GetDb()
 	createTables(database)
 	createDefaultInformation(database)
+	createCountry(database)
 }
 
 func Down1() {
@@ -24,16 +25,15 @@ func Down1() {
 
 func createTables(database *gorm.DB) {
 	var tables []interface{}
-	country := models.Country{}
-	city := models.City{}
-	user := models.User{}
-	role := models.Role{}
-	roleUser := models.RoleUser{}
-	tables = addNewTable(database, country, tables)
-	tables = addNewTable(database, city, tables)
-	tables = addNewTable(database, user, tables)
-	tables = addNewTable(database, role, tables)
-	tables = addNewTable(database, roleUser, tables)
+
+	//Basic
+	tables = addNewTable(database, models.Country{}, tables)
+	tables = addNewTable(database, models.City{}, tables)
+
+	//User
+	tables = addNewTable(database, models.User{}, tables)
+	tables = addNewTable(database, models.Role{}, tables)
+	tables = addNewTable(database, models.RoleUser{}, tables)
 
 	err := database.Migrator().CreateTable(tables...)
 	if err != nil {
@@ -83,5 +83,50 @@ func createAdminUserIfNotExists(database *gorm.DB, u *models.User, roleId int) {
 		database.Create(u)
 		ru := models.RoleUser{UserId: u.Id, RoleId: roleId}
 		database.Create(&ru)
+	}
+}
+
+func createCountry(database *gorm.DB) {
+	count := 0
+	database.
+		Model(&models.Country{}).
+		Select("count(*)").
+		Find(&count)
+	if count == 0 {
+		database.Create(&models.Country{Name: "Iran", Cities: []models.City{
+			{Name: "Tehran"},
+			{Name: "Isfahan"},
+			{Name: "Shiraz"},
+			{Name: "Chalus"},
+			{Name: "Ahwaz"},
+		}})
+		database.Create(&models.Country{Name: "USA", Cities: []models.City{
+			{Name: "New York"},
+			{Name: "Washington"},
+		}})
+		database.Create(&models.Country{Name: "Germany", Cities: []models.City{
+			{Name: "Berlin"},
+			{Name: "Munich"},
+		}})
+		database.Create(&models.Country{Name: "China", Cities: []models.City{
+			{Name: "Beijing"},
+			{Name: "Shanghai"},
+		}})
+		database.Create(&models.Country{Name: "Italy", Cities: []models.City{
+			{Name: "Roma"},
+			{Name: "Turin"},
+		}})
+		database.Create(&models.Country{Name: "France", Cities: []models.City{
+			{Name: "Paris"},
+			{Name: "Lyon"},
+		}})
+		database.Create(&models.Country{Name: "Japan", Cities: []models.City{
+			{Name: "Tokyo"},
+			{Name: "Kyoto"},
+		}})
+		database.Create(&models.Country{Name: "South Korea", Cities: []models.City{
+			{Name: "Seoul"},
+			{Name: "Ulsan"},
+		}})
 	}
 }

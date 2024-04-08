@@ -4,6 +4,7 @@ import (
 	"github.com/salarSb/car-sales/config"
 	"math"
 	"math/rand"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -16,6 +17,8 @@ var (
 	specialCharSet = "!@#$%&*"
 	numberSet      = "0123456789"
 	allCharSet     = lowerCharSet + upperCharSet + specialCharSet + numberSet
+	matchFirstCap  = regexp.MustCompile("(.)([A-Z][a-z]+)")
+	matchAllCap    = regexp.MustCompile("([a-z0-9])([A-Z])")
 )
 
 func CheckPassword(password string) bool {
@@ -135,4 +138,10 @@ func HasUpper(s string) bool {
 		}
 	}
 	return false
+}
+
+func ToSnakeCase(str string) string {
+	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
+	snake = matchAllCap.ReplaceAllString(snake, "${1}_${2}")
+	return strings.ToLower(snake)
 }

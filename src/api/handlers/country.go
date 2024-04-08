@@ -119,8 +119,8 @@ func (h *CountryHandler) Delete(c *gin.Context) {
 }
 
 // GetById Country godoc
-// @Summary Update a country
-// @Description Update a country
+// @Summary Get a country
+// @Description Get a country
 // @Tags Countries
 // @Accept json
 // @Produce json
@@ -129,10 +129,43 @@ func (h *CountryHandler) Delete(c *gin.Context) {
 // @Failure 404 {object} helper.BaseHttpResponse "Not Found"
 // @Failure 500 {object} helper.BaseHttpResponse "Internal Server Error"
 // @Router /v1/countries/{id} [get]
-// @Security BearerAuth
+// @Security AuthBearer
 func (h *CountryHandler) GetById(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Params.ByName("id"))
 	res, err := h.countryService.GetById(id)
+	if err != nil {
+		c.AbortWithStatusJSON(
+			helper.TranslateErrorToStatusCode(err),
+			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
+		)
+		return
+	}
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse(res, true, helper.Success))
+}
+
+// GetByFilter Country godoc
+// @Summary Get countries
+// @Description Get countries
+// @Tags Countries
+// @Accept json
+// @Produce json
+// @Param Request  body dto.PaginationInputWithFilter true "Request"
+// @Success 200 {object} helper.BaseHttpResponse{result=dto.PagedList[dto.CountryResponse]} "Country response"
+// @Failure 400 {object} helper.BaseHttpResponse "Bad Request"
+// @Failure 500 {object} helper.BaseHttpResponse "Internal Server Error"
+// @Router /v1/countries/get-by-filter [post]
+// @Security AuthBearer
+func (h *CountryHandler) GetByFilter(c *gin.Context) {
+	req := dto.PaginationInputWithFilter{}
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		c.AbortWithStatusJSON(
+			http.StatusBadRequest,
+			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
+		)
+		return
+	}
+	res, err := h.countryService.GetByFilter(&req)
 	if err != nil {
 		c.AbortWithStatusJSON(
 			helper.TranslateErrorToStatusCode(err),
