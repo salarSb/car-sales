@@ -2,12 +2,10 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/salarSb/car-sales/api/dto"
-	"github.com/salarSb/car-sales/api/helper"
+	_ "github.com/salarSb/car-sales/api/dto"
+	_ "github.com/salarSb/car-sales/api/helper"
 	"github.com/salarSb/car-sales/config"
 	"github.com/salarSb/car-sales/services"
-	"net/http"
-	"strconv"
 )
 
 type CityHandler struct {
@@ -33,24 +31,7 @@ func NewCityHandler(cfg *config.Config) *CityHandler {
 // @Router /v1/cities/ [post]
 // @Security AuthBearer
 func (h *CityHandler) Create(c *gin.Context) {
-	req := new(dto.CreateCityRequest)
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		c.AbortWithStatusJSON(
-			http.StatusUnprocessableEntity,
-			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err),
-		)
-		return
-	}
-	res, err := h.service.Create(c, req)
-	if err != nil {
-		c.AbortWithStatusJSON(
-			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
-		)
-		return
-	}
-	c.JSON(http.StatusCreated, helper.GenerateBaseResponse(res, true, helper.Success))
+	Create(c, h.service.Create)
 }
 
 // Update city godoc
@@ -70,25 +51,7 @@ func (h *CityHandler) Create(c *gin.Context) {
 // @Router /v1/cities/{id} [put]
 // @Security AuthBearer
 func (h *CityHandler) Update(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Params.ByName("id"))
-	req := new(dto.UpdateCityRequest)
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		c.AbortWithStatusJSON(
-			http.StatusUnprocessableEntity,
-			helper.GenerateBaseResponseWithValidationError(nil, false, helper.ValidationError, err),
-		)
-		return
-	}
-	res, err := h.service.Update(c, id, req)
-	if err != nil {
-		c.AbortWithStatusJSON(
-			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
-		)
-		return
-	}
-	c.JSON(http.StatusOK, helper.GenerateBaseResponse(res, true, helper.Success))
+	Update(c, h.service.Update)
 }
 
 // Delete City godoc
@@ -106,16 +69,7 @@ func (h *CityHandler) Update(c *gin.Context) {
 // @Router /v1/cities/{id} [delete]
 // @Security AuthBearer
 func (h *CityHandler) Delete(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Params.ByName("id"))
-	err := h.service.Delete(c, id)
-	if err != nil {
-		c.AbortWithStatusJSON(
-			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
-		)
-		return
-	}
-	c.JSON(http.StatusOK, helper.GenerateBaseResponse(nil, true, helper.Success))
+	Delete(c, h.service.Delete)
 }
 
 // GetById City godoc
@@ -131,16 +85,7 @@ func (h *CityHandler) Delete(c *gin.Context) {
 // @Router /v1/cities/{id} [get]
 // @Security AuthBearer
 func (h *CityHandler) GetById(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Params.ByName("id"))
-	res, err := h.service.GetById(id)
-	if err != nil {
-		c.AbortWithStatusJSON(
-			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
-		)
-		return
-	}
-	c.JSON(http.StatusOK, helper.GenerateBaseResponse(res, true, helper.Success))
+	GetById(c, h.service.GetById)
 }
 
 // GetByFilter City godoc
@@ -156,22 +101,5 @@ func (h *CityHandler) GetById(c *gin.Context) {
 // @Router /v1/cities/get-by-filter [post]
 // @Security AuthBearer
 func (h *CityHandler) GetByFilter(c *gin.Context) {
-	req := dto.PaginationInputWithFilter{}
-	err := c.ShouldBindJSON(&req)
-	if err != nil {
-		c.AbortWithStatusJSON(
-			http.StatusBadRequest,
-			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
-		)
-		return
-	}
-	res, err := h.service.GetByFilter(&req)
-	if err != nil {
-		c.AbortWithStatusJSON(
-			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
-		)
-		return
-	}
-	c.JSON(http.StatusOK, helper.GenerateBaseResponse(res, true, helper.Success))
+	GetByFilter(c, h.service.GetByFilter)
 }

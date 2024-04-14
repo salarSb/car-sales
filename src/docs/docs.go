@@ -1590,6 +1590,9 @@ const docTemplate = `{
         },
         "github_com_salarSb_car-sales_api_dto.UpdateFileRequest": {
             "type": "object",
+            "required": [
+                "description"
+            ],
             "properties": {
                 "description": {
                     "type": "string"
