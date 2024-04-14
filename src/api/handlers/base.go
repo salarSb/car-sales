@@ -26,7 +26,7 @@ func Create[Ti any, To any](c *gin.Context, caller func(ctx context.Context, req
 	if err != nil {
 		c.AbortWithStatusJSON(
 			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
+			helper.GenerateBaseResponseWithError(nil, false, helper.TranslateErrorToResultCode(err), err),
 		)
 		return
 	}
@@ -48,7 +48,7 @@ func Update[Ti any, To any](c *gin.Context, caller func(ctx context.Context, id 
 	if err != nil {
 		c.AbortWithStatusJSON(
 			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
+			helper.GenerateBaseResponseWithError(nil, false, helper.TranslateErrorToResultCode(err), err),
 		)
 		return
 	}
@@ -61,7 +61,7 @@ func Delete(c *gin.Context, caller func(ctx context.Context, id int) error) {
 	if err != nil {
 		c.AbortWithStatusJSON(
 			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
+			helper.GenerateBaseResponseWithError(nil, false, helper.TranslateErrorToResultCode(err), err),
 		)
 		return
 	}
@@ -74,7 +74,7 @@ func GetById[To any](c *gin.Context, caller func(id int) (*To, error)) {
 	if err != nil {
 		c.AbortWithStatusJSON(
 			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
+			helper.GenerateBaseResponseWithError(nil, false, helper.TranslateErrorToResultCode(err), err),
 		)
 		return
 	}
@@ -95,7 +95,7 @@ func GetByFilter[Ti any, To any](c *gin.Context, caller func(req *Ti) (*To, erro
 	if err != nil {
 		c.AbortWithStatusJSON(
 			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
+			helper.GenerateBaseResponseWithError(nil, false, helper.TranslateErrorToResultCode(err), err),
 		)
 		return
 	}

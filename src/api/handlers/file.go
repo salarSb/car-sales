@@ -143,7 +143,7 @@ func (h *FileHandler) Delete(c *gin.Context) {
 	if err != nil {
 		c.AbortWithStatusJSON(
 			helper.TranslateErrorToStatusCode(err),
-			helper.GenerateBaseResponseWithError(nil, false, helper.InternalError, err),
+			helper.GenerateBaseResponseWithError(nil, false, helper.TranslateErrorToResultCode(err), err),
 		)
 		return
 	}
