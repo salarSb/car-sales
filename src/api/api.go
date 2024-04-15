@@ -55,6 +55,18 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 			middlewares.Authorization([]string{"admin"}),
 		)
 
+		//Properties
+		propertyCategories := v1.Group(
+			"/property-categories",
+			middlewares.Authentication(cfg),
+			middlewares.Authorization([]string{"admin"}),
+		)
+		properties := v1.Group(
+			"/properties",
+			middlewares.Authentication(cfg),
+			middlewares.Authorization([]string{"admin"}),
+		)
+
 		//User
 		routers.User(users, cfg)
 
@@ -62,6 +74,10 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		routers.Country(countries, cfg)
 		routers.City(cities, cfg)
 		routers.File(files, cfg)
+
+		//Properties
+		routers.PropertyCategory(propertyCategories, cfg)
+		routers.Property(properties, cfg)
 	}
 }
 
