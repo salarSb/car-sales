@@ -18,7 +18,7 @@ type PropertyCategoryService struct {
 
 func NewPropertyCategoryService(cfg *config.Config) *PropertyCategoryService {
 	return &PropertyCategoryService{
-		base: NewBseService[
+		base: NewBaseService[
 			models.PropertyCategory,
 			dto.CreatePropertyCategoryRequest,
 			dto.UpdatePropertyCategoryRequest,

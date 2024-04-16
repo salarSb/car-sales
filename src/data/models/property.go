@@ -15,6 +15,6 @@ type Property struct {
 	PropertyCategoryId int
 	Description        string `gorm:"size:1000;type:string;null"`
 	DataType           string `gorm:"size:15;type:string;not null"`
-	Unit               string `gorm:"size:15;type:string;not null"`
+	Unit               string `gorm:"size:15;type:string;null"`
 	CarModelProperties []CarModelProperty
 }

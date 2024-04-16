@@ -4,19 +4,19 @@ import "time"
 
 type Gearbox struct {
 	BaseModel
-	Name      string `gorm:"size:15;type:string;not null;unique"`
+	Name      string `gorm:"size:50;type:string;not null;unique"`
 	CarModels []CarModel
 }
 
 type CarType struct {
 	BaseModel
-	Name      string `gorm:"size:15;type:string;not null;unique"`
+	Name      string `gorm:"size:50;type:string;not null;unique"`
 	CarModels []CarModel
 }
 
 type Company struct {
 	BaseModel
-	Name      string  `gorm:"size:15;type:string;not null;unique"`
+	Name      string  `gorm:"size:50;type:string;not null;unique"`
 	Country   Country `gorm:"foreignKey:CountryId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
 	CountryId int
 	CarModels []CarModel
@@ -24,7 +24,7 @@ type Company struct {
 
 type CarModel struct {
 	BaseModel
-	Name               string  `gorm:"size:15;type:string;not null;unique"`
+	Name               string  `gorm:"size:100;type:string;not null;unique"`
 	Company            Company `gorm:"foreignKey:CompanyId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
 	CompanyId          int
 	CarType            CarType `gorm:"foreignKey:CarTypeId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`

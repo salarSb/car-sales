@@ -29,7 +29,7 @@ type BaseService[T any, Tc any, Tu any, Tr any] struct {
 	Preloads []preload
 }
 
-func NewBseService[T any, Tc any, Tu any, Tr any](cfg *config.Config, preloads []preload) *BaseService[T, Tc, Tu, Tr] {
+func NewBaseService[T any, Tc any, Tu any, Tr any](cfg *config.Config, preloads []preload) *BaseService[T, Tc, Tu, Tr] {
 	return &BaseService[T, Tc, Tu, Tr]{
 		Database: db.GetDb(),
 		Logger:   logging.NewLogger(cfg),

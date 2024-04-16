@@ -13,7 +13,7 @@ type CityService struct {
 
 func NewCityService(cfg *config.Config) *CityService {
 	return &CityService{
-		base: NewBseService[models.City, dto.CreateCityRequest, dto.UpdateCityRequest, dto.CityResponse](
+		base: NewBaseService[models.City, dto.CreateCityRequest, dto.UpdateCityRequest, dto.CityResponse](
 			cfg,
 			[]preload{{string: "Country"}},
 		),

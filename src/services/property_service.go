@@ -18,7 +18,7 @@ type PropertyService struct {
 
 func NewPropertyService(cfg *config.Config) *PropertyService {
 	return &PropertyService{
-		base: NewBseService[
+		base: NewBaseService[
 			models.Property,
 			dto.CreatePropertyRequest,
 			dto.UpdatePropertyRequest,

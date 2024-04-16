@@ -13,7 +13,7 @@ type FileService struct {
 
 func NewFileService(cfg *config.Config) *FileService {
 	return &FileService{
-		base: NewBseService[models.File, dto.CreateFileRequest, dto.UpdateFileRequest, dto.FileResponse](
+		base: NewBaseService[models.File, dto.CreateFileRequest, dto.UpdateFileRequest, dto.FileResponse](
 			cfg,
 			[]preload{},
 		),
