@@ -15,7 +15,7 @@ func NewCountryService(cfg *config.Config) *CountryService {
 	return &CountryService{
 		base: NewBaseService[models.Country, dto.CountryRequest, dto.CountryRequest, dto.CountryResponse](
 			cfg,
-			[]preload{{string: "Cities"}, {string: "Cities.Country"}, {string: "Companies"}, {string: "Companies.Country"}},
+			[]preload{{string: "Cities.Country"}, {string: "Companies.Country"}},
 		),
 	}
 }

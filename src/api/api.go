@@ -83,6 +83,11 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 			middlewares.Authentication(cfg),
 			middlewares.Authorization([]string{"admin"}),
 		)
+		carModels := v1.Group(
+			"/car-models",
+			middlewares.Authentication(cfg),
+			middlewares.Authorization([]string{"admin"}),
+		)
 
 		//User
 		routers.User(users, cfg)
@@ -100,6 +105,7 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		routers.CarType(carTypes, cfg)
 		routers.Gearbox(gearboxes, cfg)
 		routers.Company(companies, cfg)
+		routers.CarModel(carModels, cfg)
 	}
 }
 
