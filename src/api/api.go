@@ -54,6 +54,16 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 			middlewares.Authentication(cfg),
 			middlewares.Authorization([]string{"admin"}),
 		)
+		colors := v1.Group(
+			"/colors",
+			middlewares.Authentication(cfg),
+			middlewares.Authorization([]string{"admin"}),
+		)
+		carModelColors := v1.Group(
+			"/car-model-colors",
+			middlewares.Authentication(cfg),
+			middlewares.Authorization([]string{"admin"}),
+		)
 
 		//Properties
 		propertyCategories := v1.Group(
@@ -96,6 +106,8 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		routers.Country(countries, cfg)
 		routers.City(cities, cfg)
 		routers.File(files, cfg)
+		routers.Color(colors, cfg)
+		routers.CarModelColor(carModelColors, cfg)
 
 		//Properties
 		routers.PropertyCategory(propertyCategories, cfg)

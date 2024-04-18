@@ -49,9 +49,10 @@ type UpdateCarModelRequest struct {
 }
 
 type CarModelResponse struct {
-	Id      int             `json:"id"`
-	Name    string          `json:"name"`
-	Gearbox GearboxResponse `json:"gearbox"`
-	Company CompanyResponse `json:"company"`
-	CarType CarTypeResponse `json:"carType"`
+	Id             int                     `json:"id"`
+	Name           string                  `json:"name"`
+	Gearbox        GearboxResponse         `json:"gearbox"`
+	Company        CompanyResponse         `json:"company"`
+	CarType        CarTypeResponse         `json:"carType"`
+	CarModelColors []CarModelColorResponse `json:"carModelColors,omitempty"`
 }

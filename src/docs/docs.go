@@ -15,6 +15,350 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/v1/car-model-colors/": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Create a car model color",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelColors"
+                ],
+                "summary": "Create a car model color",
+                "parameters": [
+                    {
+                        "description": "Create a car model color",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CreateCarModelColorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "CarModelColor response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarModelColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Status Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-colors/get-by-filter": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get car model colors",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelColors"
+                ],
+                "summary": "Get car model colors",
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.PaginationInputWithFilter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelColor response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.PagedList-github_com_salarSb_car-sales_api_dto_CarModelColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-colors/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get a car model color",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelColors"
+                ],
+                "summary": "Get a car model color",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelColor response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarModelColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Update a car model color",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelColors"
+                ],
+                "summary": "Update a car model color",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update a car model color",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.UpdateCarModelColorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelColor response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarModelColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Status Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Delete a car model color",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelColors"
+                ],
+                "summary": "Delete a car model color",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Status Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/car-models/": {
             "post": {
                 "security": [
@@ -1004,6 +1348,350 @@ const docTemplate = `{
                     "Cities"
                 ],
                 "summary": "Delete a city",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Status Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/colors/": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Create a color",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Create a color",
+                "parameters": [
+                    {
+                        "description": "Create a color",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CreateColorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Color response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.ColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Status Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/colors/get-by-filter": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get colors",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Get colors",
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.PaginationInputWithFilter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Color response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.PagedList-github_com_salarSb_car-sales_api_dto_ColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/colors/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get a color",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Get a color",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Color response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.ColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Update a color",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Update a color",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update a color",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.UpdateColorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Color response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.ColorResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Status Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Delete a color",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Colors"
+                ],
+                "summary": "Delete a color",
                 "parameters": [
                     {
                         "type": "integer",
@@ -3349,9 +4037,26 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "github_com_salarSb_car-sales_api_dto.CarModelColorResponse": {
+            "type": "object",
+            "properties": {
+                "color": {
+                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.ColorResponse"
+                },
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_salarSb_car-sales_api_dto.CarModelResponse": {
             "type": "object",
             "properties": {
+                "carModelColors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarModelColorResponse"
+                    }
+                },
                 "carType": {
                     "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarTypeResponse"
                 },
@@ -3398,6 +4103,20 @@ const docTemplate = `{
             "properties": {
                 "country": {
                     "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CountryResponse"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_salarSb_car-sales_api_dto.ColorResponse": {
+            "type": "object",
+            "properties": {
+                "hexCode": {
+                    "type": "string"
                 },
                 "id": {
                     "type": "integer"
@@ -3457,6 +4176,21 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_salarSb_car-sales_api_dto.CreateCarModelColorRequest": {
+            "type": "object",
+            "required": [
+                "carModelId",
+                "colorId"
+            ],
+            "properties": {
+                "carModelId": {
+                    "type": "integer"
+                },
+                "colorId": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_salarSb_car-sales_api_dto.CreateCarModelRequest": {
             "type": "object",
             "required": [
@@ -3496,6 +4230,23 @@ const docTemplate = `{
                     "type": "string",
                     "maxLength": 20,
                     "minLength": 3
+                }
+            }
+        },
+        "github_com_salarSb_car-sales_api_dto.CreateColorRequest": {
+            "type": "object",
+            "required": [
+                "hexCode",
+                "name"
+            ],
+            "properties": {
+                "hexCode": {
+                    "type": "string",
+                    "maxLength": 7
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 15
                 }
             }
         },
@@ -3656,6 +4407,32 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_salarSb_car-sales_api_dto.PagedList-github_com_salarSb_car-sales_api_dto_CarModelColorResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarModelColorResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_salarSb_car-sales_api_dto.PagedList-github_com_salarSb_car-sales_api_dto_CarModelResponse": {
             "type": "object",
             "properties": {
@@ -3721,6 +4498,32 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CityResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_salarSb_car-sales_api_dto.PagedList-github_com_salarSb_car-sales_api_dto_ColorResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.ColorResponse"
                     }
                 },
                 "pageNumber": {
@@ -4020,6 +4823,17 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_salarSb_car-sales_api_dto.UpdateCarModelColorRequest": {
+            "type": "object",
+            "properties": {
+                "carModelId": {
+                    "type": "integer"
+                },
+                "colorId": {
+                    "type": "integer"
+                }
+            }
+        },
         "github_com_salarSb_car-sales_api_dto.UpdateCarModelRequest": {
             "type": "object",
             "properties": {
@@ -4049,6 +4863,19 @@ const docTemplate = `{
                     "type": "string",
                     "maxLength": 20,
                     "minLength": 3
+                }
+            }
+        },
+        "github_com_salarSb_car-sales_api_dto.UpdateColorRequest": {
+            "type": "object",
+            "properties": {
+                "hexCode": {
+                    "type": "string",
+                    "maxLength": 7
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 15
                 }
             }
         },
