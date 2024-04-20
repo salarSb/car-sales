@@ -55,4 +55,21 @@ type CarModelResponse struct {
 	Company        CompanyResponse         `json:"company"`
 	CarType        CarTypeResponse         `json:"carType"`
 	CarModelColors []CarModelColorResponse `json:"carModelColors,omitempty"`
+	CarModelYears  []CarModelYearResponse  `json:"carModelYears,omitempty"`
+}
+
+type CreateCarModelYearRequest struct {
+	CarModelId int `json:"carModelId" binding:"required"`
+	YearId     int `json:"yearId" binding:"required"`
+}
+
+type UpdateCarModelYearRequest struct {
+	CarModelId int `json:"carModelId,omitempty"`
+	YearId     int `json:"yearId,omitempty"`
+}
+
+type CarModelYearResponse struct {
+	Id         int                     `json:"id"`
+	Year       YearWithoutDateResponse `json:"year,omitempty"`
+	CarModelId int                     `json:"carModelId,omitempty"`
 }

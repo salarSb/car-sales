@@ -59,8 +59,8 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 			middlewares.Authentication(cfg),
 			middlewares.Authorization([]string{"admin"}),
 		)
-		carModelColors := v1.Group(
-			"/car-model-colors",
+		years := v1.Group(
+			"/years",
 			middlewares.Authentication(cfg),
 			middlewares.Authorization([]string{"admin"}),
 		)
@@ -98,6 +98,16 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 			middlewares.Authentication(cfg),
 			middlewares.Authorization([]string{"admin"}),
 		)
+		carModelColors := v1.Group(
+			"/car-model-colors",
+			middlewares.Authentication(cfg),
+			middlewares.Authorization([]string{"admin"}),
+		)
+		carModelYears := v1.Group(
+			"/car-model-years",
+			middlewares.Authentication(cfg),
+			middlewares.Authorization([]string{"admin"}),
+		)
 
 		//User
 		routers.User(users, cfg)
@@ -107,7 +117,7 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		routers.City(cities, cfg)
 		routers.File(files, cfg)
 		routers.Color(colors, cfg)
-		routers.CarModelColor(carModelColors, cfg)
+		routers.Year(years, cfg)
 
 		//Properties
 		routers.PropertyCategory(propertyCategories, cfg)
@@ -118,6 +128,8 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		routers.Gearbox(gearboxes, cfg)
 		routers.Company(companies, cfg)
 		routers.CarModel(carModels, cfg)
+		routers.CarModelColor(carModelColors, cfg)
+		routers.CarModelYear(carModelYears, cfg)
 	}
 }
 

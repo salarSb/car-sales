@@ -1,6 +1,9 @@
 package dto
 
-import "mime/multipart"
+import (
+	"mime/multipart"
+	"time"
+)
 
 type CountryRequest struct {
 	Name string `json:"name" binding:"required,alpha,min=3,max=20"`
@@ -86,4 +89,32 @@ type UpdateCarModelColorRequest struct {
 type CarModelColorResponse struct {
 	Id    int           `json:"id"`
 	Color ColorResponse `json:"color,omitempty"`
+}
+
+type CreateYearRequest struct {
+	Title   string    `json:"title" binding:"required,min=4,max=4"`
+	Year    int       `json:"year" binding:"required"`
+	StartAt time.Time `json:"startAt" binding:"required"`
+	EndAt   time.Time `json:"endAt" binding:"required"`
+}
+
+type UpdateYearRequest struct {
+	Title   string    `json:"title,omitempty" binding:"min=4,max=4"`
+	Year    int       `json:"year,omitempty"`
+	StartAt time.Time `json:"startAt,omitempty"`
+	EndAt   time.Time `json:"endAt,omitempty"`
+}
+
+type YearResponse struct {
+	Id      int       `json:"id"`
+	Title   string    `json:"title"`
+	Year    int       `json:"year"`
+	StartAt time.Time `json:"startAt"`
+	EndAt   time.Time `json:"endAt"`
+}
+
+type YearWithoutDateResponse struct {
+	Id    int    `json:"id"`
+	Title string `json:"title"`
+	Year  int    `json:"year"`
 }
