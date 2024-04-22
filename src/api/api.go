@@ -108,6 +108,11 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 			middlewares.Authentication(cfg),
 			middlewares.Authorization([]string{"admin"}),
 		)
+		carModelPriceHistories := v1.Group(
+			"/car-model-price-histories",
+			middlewares.Authentication(cfg),
+			middlewares.Authorization([]string{"admin"}),
+		)
 
 		//User
 		routers.User(users, cfg)
@@ -130,6 +135,7 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		routers.CarModel(carModels, cfg)
 		routers.CarModelColor(carModelColors, cfg)
 		routers.CarModelYear(carModelYears, cfg)
+		routers.CarModelPriceHistory(carModelPriceHistories, cfg)
 	}
 }
 

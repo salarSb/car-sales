@@ -49,9 +49,9 @@ type CarModelColor struct {
 type CarModelYear struct {
 	BaseModel
 	CarModel               CarModel `gorm:"foreignKey:CarModelId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
-	CarModelId             int
-	Year                   Year `gorm:"foreignKey:YearId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
-	YearId                 int
+	CarModelId             int      `gorm:"uniqueIndex:idx_CarModelId_YearId"`
+	Year                   Year     `gorm:"foreignKey:YearId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
+	YearId                 int      `gorm:"uniqueIndex:idx_CarModelId_YearId"`
 	CarModelPriceHistories []CarModelPriceHistory
 }
 
