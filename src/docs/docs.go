@@ -359,6 +359,350 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/car-model-files/": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Create a car model file",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelFiles"
+                ],
+                "summary": "Create a car model file",
+                "parameters": [
+                    {
+                        "description": "Create a car model file",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CreateCarModelFileRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "CarModelFile response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarModelFileResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Status Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-files/get-by-filter": {
+            "post": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get car model files",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelFiles"
+                ],
+                "summary": "Get car model files",
+                "parameters": [
+                    {
+                        "description": "Request",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.PaginationInputWithFilter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelFile response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.PagedList-github_com_salarSb_car-sales_api_dto_CarModelFileResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/car-model-files/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Get a car model file",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelFiles"
+                ],
+                "summary": "Get a car model file",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelFile response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarModelFileResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Update a car model file",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelFiles"
+                ],
+                "summary": "Update a car model file",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update a car model file",
+                        "name": "Request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.UpdateCarModelFileRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CarModelFile response",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "result": {
+                                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarModelFileResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Status Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "AuthBearer": []
+                    }
+                ],
+                "description": "Delete a car model file",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CarModelFiles"
+                ],
+                "summary": "Delete a car model file",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Status Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_salarSb_car-sales_api_helper.BaseHttpResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/car-model-price-histories/": {
             "post": {
                 "security": [
@@ -5080,6 +5424,23 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_salarSb_car-sales_api_dto.CarModelFileResponse": {
+            "type": "object",
+            "properties": {
+                "carModel": {
+                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarModelResponse"
+                },
+                "file": {
+                    "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.FileResponse"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isMainFile": {
+                    "type": "boolean"
+                }
+            }
+        },
         "github_com_salarSb_car-sales_api_dto.CarModelPriceHistoryResponse": {
             "type": "object",
             "properties": {
@@ -5134,6 +5495,12 @@ const docTemplate = `{
             "properties": {
                 "carModelId": {
                     "type": "integer"
+                },
+                "carModelPriceHistories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarModelPriceHistoryResponse"
+                    }
                 },
                 "id": {
                     "type": "integer"
@@ -5257,6 +5624,25 @@ const docTemplate = `{
                 },
                 "colorId": {
                     "type": "integer"
+                }
+            }
+        },
+        "github_com_salarSb_car-sales_api_dto.CreateCarModelFileRequest": {
+            "type": "object",
+            "required": [
+                "carModelId",
+                "fileId",
+                "isMainFile"
+            ],
+            "properties": {
+                "carModelId": {
+                    "type": "integer"
+                },
+                "fileId": {
+                    "type": "integer"
+                },
+                "isMainFile": {
+                    "type": "boolean"
                 }
             }
         },
@@ -5548,6 +5934,32 @@ const docTemplate = `{
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarModelColorResponse"
+                    }
+                },
+                "pageNumber": {
+                    "type": "integer"
+                },
+                "totalPages": {
+                    "type": "integer"
+                },
+                "totalRows": {
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_salarSb_car-sales_api_dto.PagedList-github_com_salarSb_car-sales_api_dto_CarModelFileResponse": {
+            "type": "object",
+            "properties": {
+                "hasNextPage": {
+                    "type": "boolean"
+                },
+                "hasPreviousPage": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_salarSb_car-sales_api_dto.CarModelFileResponse"
                     }
                 },
                 "pageNumber": {
@@ -6037,6 +6449,14 @@ const docTemplate = `{
                 },
                 "colorId": {
                     "type": "integer"
+                }
+            }
+        },
+        "github_com_salarSb_car-sales_api_dto.UpdateCarModelFileRequest": {
+            "type": "object",
+            "properties": {
+                "isMainFile": {
+                    "type": "boolean"
                 }
             }
         },

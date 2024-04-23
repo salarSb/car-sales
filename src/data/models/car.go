@@ -41,9 +41,9 @@ type CarModel struct {
 type CarModelColor struct {
 	BaseModel
 	CarModel   CarModel `gorm:"foreignKey:CarModelId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
-	CarModelId int
-	Color      Color `gorm:"foreignKey:ColorId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
-	ColorId    int
+	CarModelId int      `gorm:"uniqueIndex:idx_CarModelId_ColorId"`
+	Color      Color    `gorm:"foreignKey:ColorId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
+	ColorId    int      `gorm:"uniqueIndex:idx_CarModelId_ColorId"`
 }
 
 type CarModelYear struct {
@@ -58,10 +58,10 @@ type CarModelYear struct {
 type CarModelFile struct {
 	BaseModel
 	CarModel   CarModel `gorm:"foreignKey:CarModelId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
-	CarModelId int
-	File       File `gorm:"foreignKey:FileId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
-	FileId     int
-	IsMainFile bool
+	CarModelId int      `gorm:"uniqueIndex:idx_CarModelId_FileId"`
+	File       File     `gorm:"foreignKey:FileId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
+	FileId     int      `gorm:"uniqueIndex:idx_CarModelId_FileId"`
+	IsMainFile bool     `gorm:"default:0"`
 }
 
 type CarModelPriceHistory struct {
@@ -75,10 +75,10 @@ type CarModelPriceHistory struct {
 type CarModelProperty struct {
 	BaseModel
 	CarModel   CarModel `gorm:"foreignKey:CarModelId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
-	CarModelId int
+	CarModelId int      `gorm:"uniqueIndex:idx_CarModelId_PropertyId"`
 	Property   Property `gorm:"foreignKey:PropertyId;constraint:OnUpdate:NO ACTION;OnDelete:NO ACTION"`
-	PropertyId int
-	Value      string `gorm:"size:100;type:string;not null"`
+	PropertyId int      `gorm:"uniqueIndex:idx_CarModelId_PropertyId"`
+	Value      string   `gorm:"size:100;type:string;not null"`
 }
 
 type CarModelComment struct {

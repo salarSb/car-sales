@@ -113,6 +113,11 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 			middlewares.Authentication(cfg),
 			middlewares.Authorization([]string{"admin"}),
 		)
+		carModelFiles := v1.Group(
+			"/car-model-files",
+			middlewares.Authentication(cfg),
+			middlewares.Authorization([]string{"admin"}),
+		)
 
 		//User
 		routers.User(users, cfg)
@@ -136,6 +141,9 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		routers.CarModelColor(carModelColors, cfg)
 		routers.CarModelYear(carModelYears, cfg)
 		routers.CarModelPriceHistory(carModelPriceHistories, cfg)
+		routers.CarModelFile(carModelFiles, cfg)
+
+		r.Static("/static", "./uploads")
 	}
 }
 
