@@ -86,3 +86,16 @@ func CarModelProperty(r *gin.RouterGroup, cfg *config.Config) {
 	r.GET("/:id", h.GetById)
 	r.POST("/get-by-filter", h.GetByFilter)
 }
+
+func CarModelCommentAdmin(r *gin.RouterGroup, cfg *config.Config) {
+	h := handlers.NewCarModelCommentHandler(cfg)
+	r.PUT("/:id", h.Update)
+	r.DELETE("/:id", h.Delete)
+	r.GET("/:id", h.GetById)
+	r.POST("/get-by-filter", h.GetByFilter)
+}
+
+func CarModelCommentUser(r *gin.RouterGroup, cfg *config.Config) {
+	h := handlers.NewCarModelCommentHandler(cfg)
+	r.POST("/", h.Create)
+}

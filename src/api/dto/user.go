@@ -28,3 +28,12 @@ type LoginByUsernameRequest struct {
 	Username string `json:"username" binding:"required,min=5"`
 	Password string `json:"password" binding:"required,min=6"`
 }
+
+type UserResponse struct {
+	Id           int    `json:"id"`
+	Username     string `json:"username"`
+	FirstName    string `json:"firstName"`
+	LastName     string `json:"lastName"`
+	Email        string `json:"email"`
+	MobileNumber string `json:"mobileNumber"`
+}

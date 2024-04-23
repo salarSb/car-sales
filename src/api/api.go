@@ -123,6 +123,16 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 			middlewares.Authentication(cfg),
 			middlewares.Authorization([]string{"admin"}),
 		)
+		carModelCommentsAdmin := v1.Group(
+			"/car-model-comments",
+			middlewares.Authentication(cfg),
+			middlewares.Authorization([]string{"admin"}),
+		)
+		carModelCommentsUser := v1.Group(
+			"/car-model-comments",
+			middlewares.Authentication(cfg),
+			middlewares.Authorization([]string{"admin", "default"}),
+		)
 
 		//User
 		routers.User(users, cfg)
@@ -148,6 +158,8 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 		routers.CarModelPriceHistory(carModelPriceHistories, cfg)
 		routers.CarModelFile(carModelFiles, cfg)
 		routers.CarModelProperty(carModelProperties, cfg)
+		routers.CarModelCommentAdmin(carModelCommentsAdmin, cfg)
+		routers.CarModelCommentUser(carModelCommentsUser, cfg)
 
 		r.Static("/static", "./uploads")
 	}

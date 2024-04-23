@@ -60,6 +60,7 @@ type CarModelResponse struct {
 	CarModelYears      []CarModelYearResponse     `json:"carModelYears,omitempty"`
 	CarModelFiles      []CarModelFileResponse     `json:"carModelFiles,omitempty"`
 	CarModelProperties []CarModelPropertyResponse `json:"carModelProperties,omitempty"`
+	CarModelComments   []CarModelCommentResponse  `json:"carModelComments,omitempty"`
 }
 
 type CreateCarModelYearRequest struct {
@@ -117,11 +118,11 @@ type CarModelFileResponse struct {
 type CreateCarModelPropertyRequest struct {
 	CarModelId int    `json:"carModelId" binding:"required"`
 	PropertyId int    `json:"propertyId" binding:"required"`
-	Value      string `json:"value" binding:"required,max=100"`
+	Value      string `json:"value" binding:"required,max=1000"`
 }
 
 type UpdateCarModelPropertyRequest struct {
-	Value string `json:"value" binding:"required,max=100"`
+	Value string `json:"value" binding:"required,max=1000"`
 }
 
 type CarModelPropertyResponse struct {
@@ -129,4 +130,21 @@ type CarModelPropertyResponse struct {
 	CarModelId int              `json:"carModelId,omitempty"`
 	Property   PropertyResponse `json:"property,omitempty"`
 	Value      string           `json:"value"`
+}
+
+type CreateCarModelCommentRequest struct {
+	CarModelId int    `json:"carModelId" binding:"required"`
+	UserId     int    `json:"userId"`
+	Message    string `json:"message" binding:"required,max=500"`
+}
+
+type UpdateCarModelCommentRequest struct {
+	Message string `json:"message" binding:"required,max=500"`
+}
+
+type CarModelCommentResponse struct {
+	Id         int          `json:"id"`
+	CarModelId int          `json:"carModelId"`
+	User       UserResponse `json:"user"`
+	Message    string       `json:"message"`
 }
