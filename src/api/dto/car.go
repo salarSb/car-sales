@@ -51,14 +51,15 @@ type UpdateCarModelRequest struct {
 }
 
 type CarModelResponse struct {
-	Id             int                     `json:"id"`
-	Name           string                  `json:"name"`
-	Gearbox        GearboxResponse         `json:"gearbox"`
-	Company        CompanyResponse         `json:"company"`
-	CarType        CarTypeResponse         `json:"carType"`
-	CarModelColors []CarModelColorResponse `json:"carModelColors,omitempty"`
-	CarModelYears  []CarModelYearResponse  `json:"carModelYears,omitempty"`
-	CarModelFiles  []CarModelFileResponse  `json:"carModelFiles,omitempty"`
+	Id                 int                        `json:"id"`
+	Name               string                     `json:"name"`
+	Gearbox            GearboxResponse            `json:"gearbox"`
+	Company            CompanyResponse            `json:"company"`
+	CarType            CarTypeResponse            `json:"carType"`
+	CarModelColors     []CarModelColorResponse    `json:"carModelColors,omitempty"`
+	CarModelYears      []CarModelYearResponse     `json:"carModelYears,omitempty"`
+	CarModelFiles      []CarModelFileResponse     `json:"carModelFiles,omitempty"`
+	CarModelProperties []CarModelPropertyResponse `json:"carModelProperties,omitempty"`
 }
 
 type CreateCarModelYearRequest struct {
@@ -103,7 +104,7 @@ type CreateCarModelFileRequest struct {
 }
 
 type UpdateCarModelFileRequest struct {
-	IsMainFile bool `json:"isMainFile,omitempty"`
+	IsMainFile bool `json:"isMainFile" binding:"required"`
 }
 
 type CarModelFileResponse struct {
@@ -111,4 +112,21 @@ type CarModelFileResponse struct {
 	CarModelId int          `json:"carModelId,omitempty"`
 	File       FileResponse `json:"file,omitempty"`
 	IsMainFile bool         `json:"isMainFile"`
+}
+
+type CreateCarModelPropertyRequest struct {
+	CarModelId int    `json:"carModelId" binding:"required"`
+	PropertyId int    `json:"propertyId" binding:"required"`
+	Value      string `json:"value" binding:"required,max=100"`
+}
+
+type UpdateCarModelPropertyRequest struct {
+	Value string `json:"value" binding:"required,max=100"`
+}
+
+type CarModelPropertyResponse struct {
+	Id         int              `json:"id"`
+	CarModelId int              `json:"carModelId,omitempty"`
+	Property   PropertyResponse `json:"property,omitempty"`
+	Value      string           `json:"value"`
 }
