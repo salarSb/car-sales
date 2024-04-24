@@ -20,6 +20,7 @@ import (
 
 func InitServer(cfg *config.Config) {
 	logger := logging.NewLogger(cfg)
+	gin.SetMode(cfg.Server.RunMode)
 	r := gin.New()
 	RegisterValidators(logger)
 	RegisterPrometheus(logger)
