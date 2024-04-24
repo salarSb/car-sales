@@ -10,19 +10,19 @@ logger:
 cors:
   allowOrigins: "*"
 postgres:
-  host:
-  port:
-  user:
-  password:
-  dbName:
+  host: localhost
+  port: 5432
+  user: postgres
+  password: admin
+  dbName: car_sale_db
   sslMode: disable
   maxIdleConnections: 15
   maxOpenConnections: 100
   connectionMaxLifetime: 5
 redis:
-  host:
-  port:
-  password:
+  host: localhost
+  port: 6379
+  password: password
   db: 0
   dialTimeout: 5
   writeTimeout: 5
@@ -33,17 +33,17 @@ redis:
   idleTimeout: 500
 password:
   includeChars: true
-  includeDigits: true
+  includeDigits: false
   minLength: 6
   maxLength: 64
-  includeUppercase: true
-  includeLowercase: true
+  includeUppercase: false
+  includeLowercase: false
 otp:
   expireTime: 120
   digits: 6
   limiter: 10
 jwt:
-  secret:
-  refreshSecret:
-  accessTokenExpireDuration:
-  refreshTokenExpireDuration:
+  secret: "mySecretKey"
+  refreshSecret: "mySecretKey"
+  accessTokenExpireDuration: 60
+  refreshTokenExpireDuration: 60

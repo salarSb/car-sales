@@ -1,5 +1,6 @@
 server:
-  port: 5005
+  internalPort: 5000
+  externalPort: 0
   runMode: debug
 logger:
   filePath: /app/logs/

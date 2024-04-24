@@ -198,6 +198,41 @@ services:
         - webapi_network
       restart: always
 
+####################### PROJECT #######################
+  car-api1:
+    build: ../src/
+    image: car-api:latest
+    container_name: web-api1
+    environment:
+      - Port=9001
+    ports:
+      - "9001:5000"
+    networks:
+      - webapi_network
+    volumes:
+      - logs:/app/logs
+    depends_on:
+      - postgres
+      - elasticsearch
+    restart: unless-stopped
+
+  car-api2:
+    build: ../src/
+    image: car-api:latest
+    container_name: web-api2
+    environment:
+      - Port=9002
+    ports:
+      - "9002:5000"
+    networks:
+      - webapi_network
+    volumes:
+      - logs:/app/logs
+    depends_on:
+      - postgres
+      - elasticsearch
+    restart: unless-stopped
+
 ####################### VOLUME AND NETWORKS #######################
 volumes:
   postgres:

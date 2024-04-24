@@ -34,3 +34,4 @@ __debug_bin
 /src/docs/swagger.yaml
 /src/uploads/
 */uploads/
+/src/config/config-production.yml
