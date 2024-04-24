@@ -11,6 +11,7 @@ import (
 	"github.com/salarSb/car-sales/data/db"
 	"github.com/salarSb/car-sales/data/models"
 	"github.com/salarSb/car-sales/pkg/logging"
+	"github.com/salarSb/car-sales/pkg/metrics"
 	"github.com/salarSb/car-sales/pkg/service_errors"
 	"gorm.io/gorm"
 	"math"
@@ -47,10 +48,12 @@ func (b *BaseService[T, Tc, Tu, Tr]) Create(ctx context.Context, req *Tc) (*Tr, 
 	if err != nil {
 		tx.Rollback()
 		b.Logger.Error(logging.Postgres, logging.Insert, err.Error(), nil)
+		metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Create", "Failed").Inc()
 		return nil, err
 	}
 	tx.Commit()
 	bm, err := common.TypeConverter[models.BaseModel](model)
+	metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Create", "Success").Inc()
 	if err != nil {
 		return nil, err
 	}
@@ -64,6 +67,7 @@ func (b *BaseService[T, Tc, Tu, Tr]) Update(ctx context.Context, id int, req *Tu
 		snakeMap[common.ToSnakeCase(k)] = v
 	}
 	if err != nil {
+
 		return nil, err
 	}
 	snakeMap["modified_by"] = &sql.NullInt64{Int64: int64(ctx.Value(constants.UserIdKey).(float64)), Valid: true}
@@ -77,9 +81,11 @@ func (b *BaseService[T, Tc, Tu, Tr]) Update(ctx context.Context, id int, req *Tu
 		Error; err != nil {
 		tx.Rollback()
 		b.Logger.Error(logging.Postgres, logging.Update, err.Error(), nil)
+		metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Update", "Failed").Inc()
 		return nil, err
 	}
 	tx.Commit()
+	metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Update", "Success").Inc()
 	return b.GetById(id)
 }
 
@@ -101,9 +107,11 @@ func (b *BaseService[T, Tc, Tu, Tr]) Delete(ctx context.Context, id int) error {
 		RowsAffected; cnt == 0 {
 		tx.Rollback()
 		b.Logger.Error(logging.Postgres, logging.Delete, service_errors.RecordNotFound, nil)
+		metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Delete", "Failed").Inc()
 		return &service_errors.ServiceError{EndUserMessage: service_errors.RecordNotFound}
 	}
 	tx.Commit()
+	metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "Delete", "Success").Inc()
 	return nil
 }
 
@@ -112,13 +120,21 @@ func (b *BaseService[T, Tc, Tu, Tr]) GetById(id int) (*Tr, error) {
 	database := Preload(b.Database, b.Preloads)
 	err := database.Where("id = ? AND deleted_by is null AND deleted_at is null", id).First(model).Error
 	if err != nil {
+		metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "GetById", "Failed").Inc()
 		return nil, err
 	}
+	metrics.DbCall.WithLabelValues(reflect.TypeOf(*model).String(), "GetById", "Success").Inc()
 	return common.TypeConverter[Tr](model)
 }
 
 func (b *BaseService[T, Tc, Tu, Tr]) GetByFilter(req *dto.PaginationInputWithFilter) (*dto.PagedList[Tr], error) {
-	return Paginate[T, Tr](req, b.Preloads, b.Database)
+	res, err := Paginate[T, Tr](req, b.Preloads, b.Database)
+	if err != nil {
+		metrics.DbCall.WithLabelValues(reflect.TypeOf(*new(T)).String(), "GetByFilter", "Failed").Inc()
+		return nil, err
+	}
+	metrics.DbCall.WithLabelValues(reflect.TypeOf(*new(T)).String(), "GetByFilter", "Success").Inc()
+	return res, nil
 }
 
 func getQuery[T any](filter *dto.DynamicFilter) string {
